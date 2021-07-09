@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package messages;
+
+import "scalapb/scalapb.proto";
+
+option (scalapb.options) = {
+  primitive_wrappers: true
+  single_file: true
+  no_default_values_in_constructor: true
+  import: "mapper.BigDecimalTypeMapper.stingToBigDecimalMapper"
+};
+
+message Money {
+  string amount = 1 [(scalapb.field).type = "scala.BigDecimal"];
+}
+
+message Person {
+  string name = 1;
+  Money money = 2[(scalapb.field).no_box = true];
+}
